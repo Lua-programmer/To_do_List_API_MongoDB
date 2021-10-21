@@ -31,8 +31,11 @@ class TasksController {
 
   createTask = async (req, res) => {
     const task = req.body;
-    const taskSave = await tasksService.createTask(task);
-    res.send(taskSave);
+    const taskSave = await tasksService.createTask(task)
+    .then(() => {
+      res.send({ message: `${taskSave} criada com sucesso` });
+    })
+    .catch((err) => res.status(500).send({error: `erro no servdor: ${err}`}));
   };
 
   //validation for incomplete ID - validação para o ID incompleto
