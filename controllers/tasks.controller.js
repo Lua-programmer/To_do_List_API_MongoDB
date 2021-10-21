@@ -33,7 +33,7 @@ class TasksController {
     const task = req.body;
     const taskSave = await tasksService.createTask(task)
     .then(() => {
-      res.send({ message: `Tarefa criada com sucesso` });
+      res.send({ message: `Task created successfully` });
     })
     .catch((err) => res.status(500).send({error: `erro no servdor: ${err}`}));
     console.log(taskSave);
@@ -89,7 +89,7 @@ class TasksController {
     tasksService.updateTask(id, newTask);
     const updatedTask = await tasksService.findById(id)
     .then(() => {
-      res.status(200).send({message: 'Tarefa atualizada com sucesso'});
+      res.status(200).send({message: 'Task updated successfully'});
     })
     .catch((err) => res.status(500).send({error: `erro no servdor: ${err}`}));
     console.log(updatedTask);
