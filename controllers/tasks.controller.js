@@ -33,9 +33,10 @@ class TasksController {
     const task = req.body;
     const taskSave = await tasksService.createTask(task)
     .then(() => {
-      res.send({ message: `${taskSave} criada com sucesso` });
+      res.send({ message: `Tarefa criada com sucesso` });
     })
     .catch((err) => res.status(500).send({error: `erro no servdor: ${err}`}));
+    console.log(taskSave);
   };
 
   //validation for incomplete ID - validação para o ID incompleto
@@ -86,9 +87,12 @@ class TasksController {
 
     //if everything is correct, it will return the updated task - se tudo estiver correto, retornará a tarefa atualizada
     tasksService.updateTask(id, newTask);
-    const updatedTask = await tasksService.findById(id);
-
-    res.send(updatedTask);
+    const updatedTask = await tasksService.findById(id)
+    .then(() => {
+      res.status(200).send({message: 'Tarefa atualizada com sucesso'});
+    })
+    .catch((err) => res.status(500).send({error: `erro no servdor: ${err}`}));
+    console.log(updatedTask);
   };
 
   deleteTask = async (req, res) => {
